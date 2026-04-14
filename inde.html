@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OZRAN — Premium Lifestyle Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0a0a0a;
+  --white:#f5f0e8;
+  --cream:#f0e9d6;
+  --gold:#c9a84c;
+  --gold2:#e8c96a;
+  --red:#c0392b;
+  --ink:#1a1a2e;
+  --slate:#2d3561;
+  --card1:#16213e;
+  --card2:#0f3460;
+  --card3:#533483;
+  --accent:#e94560;
+  --speed:0.4s;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* Custom cursor */
+#cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,background .2s;mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease;mix-blend-mode:normal;opacity:.6}
+body:hover #cursor{transform:translate(-50%,-50%) scale(1)}
+
+/* Noise overlay */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:100;opacity:.4;
+}
+
+/* === NAV === */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 3rem;
+  backdrop-filter:blur(20px);
+  background:rgba(10,10,10,0.6);
+  border-bottom:1px solid rgba(201,168,76,0.15);
+  transition:padding .4s;
+}
+nav.scrolled{padding:.9rem 3rem;background:rgba(10,10,10,0.9)}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.2rem;letter-spacing:.15em;
+  color:var(--gold);
+  text-decoration:none;
+  position:relative;
+}
+.nav-logo::after{
+  content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;
+  background:var(--gold);transition:width .4s;
+}
+nav:hover .nav-logo::after{width:100%}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  color:var(--white);text-decoration:none;font-size:.85rem;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:300;
+  position:relative;padding-bottom:4px;
+  transition:color .3s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;width:0;height:1px;
+  background:var(--gold);transition:width .35s;
+}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  padding:.6rem 1.6rem;border:1px solid var(--gold);
+  color:var(--gold);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;font-weight:400;
+  transition:all .35s;background:transparent;cursor:none;
+}
+.nav-cta:hover{background:var(--gold);color:var(--black)}
+
+/* === HERO === */
+#hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  padding:8rem 3rem 4rem;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 60% 50%, #16213e 0%, #0a0a0a 70%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
+  background-size:60px 60px;
+  animation:gridDrift 30s linear infinite;
+}
+@keyframes gridDrift{0%{background-position:0 0}100%{background-position:60px 60px}}
+
+.hero-content{
+  position:relative;z-index:2;
+  max-width:1400px;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+}
+.hero-text{animation:heroIn 1.2s cubic-bezier(.16,1,.3,1) both}
+@keyframes heroIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.5rem;
+  animation:heroIn 1s .1s both;
+}
+.hero-eyebrow span{width:40px;height:1px;background:var(--gold)}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,10vw,9rem);
+  line-height:.9;letter-spacing:.04em;
+  margin-bottom:1.5rem;
+  animation:heroIn 1s .2s both;
+}
+.hero-title .line2{color:var(--gold);font-style:italic;font-family:'Playfair Display',serif}
+.hero-desc{
+  font-size:1rem;font-weight:300;color:rgba(245,240,232,.65);
+  max-width:420px;line-height:1.75;margin-bottom:2.5rem;
+  animation:heroIn 1s .35s both;
+}
+.hero-btns{display:flex;gap:1.2rem;flex-wrap:wrap;animation:heroIn 1s .5s both}
+.btn-primary{
+  padding:.9rem 2.4rem;background:var(--gold);
+  color:var(--black);font-size:.85rem;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:500;text-decoration:none;
+  transition:all .35s;display:inline-block;cursor:none;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-outline{
+  padding:.9rem 2.4rem;border:1px solid rgba(245,240,232,.3);
+  color:var(--white);font-size:.85rem;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:300;text-decoration:none;
+  transition:all .35s;cursor:none;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Waving T-shirt hero visual */
+.hero-visual{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  animation:heroIn 1.2s .3s both;
+}
+.tshirt-scene{
+  position:relative;
+  width:380px;height:420px;
+}
+.tshirt-svg{
+  width:100%;height:100%;
+  filter:drop-shadow(0 20px 60px rgba(201,168,76,.25));
+  animation:tshirtWave 4s ease-in-out infinite;
+  transform-origin:50% 20%;
+}
+@keyframes tshirtWave{
+  0%,100%{transform:rotate(-2deg) translateY(0)}
+  25%{transform:rotate(1deg) translateY(-8px) skewX(.5deg)}
+  50%{transform:rotate(2deg) translateY(-4px)}
+  75%{transform:rotate(-1deg) translateY(-10px) skewX(-.5deg)}
+}
+.tshirt-glow{
+  position:absolute;inset:-20%;
+  background:radial-gradient(circle at 50% 50%, rgba(201,168,76,.12) 0%, transparent 65%);
+  animation:glowPulse 3s ease-in-out infinite;
+}
+@keyframes glowPulse{0%,100%{opacity:.6}50%{opacity:1}}
+.floating-tags{position:absolute;inset:0;pointer-events:none}
+.ftag{
+  position:absolute;
+  padding:.4rem .9rem;border:1px solid var(--gold);
+  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);background:rgba(10,10,10,.8);
+  backdrop-filter:blur(8px);white-space:nowrap;
+}
+.ftag:nth-child(1){top:10%;right:-10%;animation:tagFloat 3.5s 0s ease-in-out infinite}
+.ftag:nth-child(2){top:45%;left:-15%;animation:tagFloat 3.5s .8s ease-in-out infinite}
+.ftag:nth-child(3){bottom:15%;right:-5%;animation:tagFloat 3.5s 1.6s ease-in-out infinite}
+@keyframes tagFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* Scrolling ticker */
+.ticker{
+  overflow:hidden;white-space:nowrap;
+  padding:.75rem 0;
+  border-top:1px solid rgba(201,168,76,.2);
+  border-bottom:1px solid rgba(201,168,76,.2);
+  background:rgba(201,168,76,.04);
+  position:relative;z-index:2;
+}
+.ticker-track{
+  display:inline-flex;gap:0;
+  animation:tickerRoll 25s linear infinite;
+}
+@keyframes tickerRoll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{
+  display:inline-flex;align-items:center;gap:1.5rem;
+  padding:0 2rem;font-size:.75rem;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(245,240,232,.5);font-weight:300;
+}
+.ticker-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0}
+
+/* === CARD DECK SECTION === */
+#products{padding:7rem 3rem;position:relative;overflow:hidden}
+.section-header{text-align:center;margin-bottom:4rem}
+.section-label{
+  font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;display:block;
+}
+.section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,6vw,5.5rem);
+  line-height:.95;letter-spacing:.04em;
+}
+.section-title em{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.1em}
+
+/* Deck of cards */
+.deck-container{
+  max-width:1200px;margin:0 auto;
+  display:flex;flex-direction:column;gap:4rem;
+}
+.product-deck{
+  position:relative;
+  height:340px;
+  display:flex;align-items:center;
+  justify-content:center;
+}
+.product-deck .deck-label{
+  position:absolute;left:0;top:50%;transform:translateY(-50%);
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.15em;
+  color:rgba(245,240,232,.3);text-transform:uppercase;
+  writing-mode:vertical-rl;transform:rotate(180deg) translateY(50%);
+}
+.cards-row{
+  display:flex;gap:0;
+  position:relative;
+  height:300px;
+}
+.product-card{
+  width:200px;height:280px;
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+  flex-shrink:0;
+  cursor:none;
+  transition:transform .5s cubic-bezier(.16,1,.3,1), z-index 0s;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+}
+.product-card:nth-child(1){transform:rotate(-8deg) translateX(30px);z-index:1}
+.product-card:nth-child(2){transform:rotate(-3deg) translateX(10px);z-index:2}
+.product-card:nth-child(3){transform:rotate(1deg);z-index:3}
+.product-card:nth-child(4){transform:rotate(5deg) translateX(-10px);z-index:2}
+.product-card:nth-child(5){transform:rotate(9deg) translateX(-20px);z-index:1}
+.product-card:hover{
+  transform:translateY(-30px) rotate(0deg) scale(1.05) !important;
+  z-index:10 !important;
+  box-shadow:0 30px 60px rgba(0,0,0,.7),0 0 40px rgba(201,168,76,.2);
+}
+.card-bg{
+  position:absolute;inset:0;
+}
+.card-inner{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:1rem;
+  background:linear-gradient(to top, rgba(0,0,0,.9) 0%, transparent 55%);
+}
+.card-tag{
+  font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.3rem;
+}
+.card-name{font-size:.85rem;font-weight:500;line-height:1.3}
+.card-price{font-size:.75rem;color:rgba(245,240,232,.6);margin-top:.2rem}
+
+/* Phone case card visuals */
+.pcard-verstappen{background:linear-gradient(135deg, #1a0000 0%, #8B0000 30%, #cc2200 50%, #ff4400 70%, #1a1a1a 100%)}
+.pcard-gojo{background:linear-gradient(135deg, #0a0a1a 0%, #1a0030 30%, #4a0080 60%, #7c3cff 80%, #0d0d0d 100%)}
+.pcard-f1{background:linear-gradient(135deg, #001a00 0%, #003300 30%, #005500 50%, #00aa00 70%, #1a1a0a 100%)}
+.pcard-anime{background:linear-gradient(135deg, #1a0010 0%, #400030 30%, #80004a 60%, #c0006a 80%, #0d0d1a 100%)}
+.pcard-abstract{background:linear-gradient(135deg, #0a0a00 0%, #1a1a00 30%, #555500 50%, #aaaa00 70%, #0d0d0a 100%)}
+
+/* Pillow card visuals */
+.pilcard-f1{background:linear-gradient(135deg, #000a1a 0%, #002040 40%, #004080 60%, #0070c0 80%, #001020 100%)}
+.pilcard-manga{background:linear-gradient(135deg, #1a0a00 0%, #3a1500 30%, #6a2500 55%, #c04000 75%, #0d0500 100%)}
+.pilcard-space{background:linear-gradient(135deg, #000005 0%, #05001a 30%, #0d0040 55%, #200060 75%, #000008 100%)}
+.pilcard-city{background:linear-gradient(135deg, #05050a 0%, #0a0a20 30%, #1a1a45 55%, #303070 75%, #050510 100%)}
+.pilcard-nature{background:linear-gradient(135deg, #001a05 0%, #003010 35%, #006020 55%, #00a040 75%, #001008 100%)}
+
+/* T-shirt card visuals */
+.tcard-f1{background:linear-gradient(135deg, #1a0000 0%, #3a0000 30%, #7a0000 55%, #cc0000 75%, #0d0000 100%)}
+.tcard-max{background:linear-gradient(135deg, #001a30 0%, #002a50 30%, #004070 55%, #0060a0 75%, #001020 100%)}
+.tcard-street{background:linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 35%, #333 55%, #555 75%, #050505 100%)}
+.tcard-vintage{background:linear-gradient(135deg, #1a1000 0%, #2a1800 30%, #4a2800 55%, #7a4000 75%, #0d0800 100%)}
+
+/* Decorative shapes on cards */
+.card-shape{
+  position:absolute;
+  pointer-events:none;opacity:.25;
+}
+
+/* Sticker section */
+.sticker-orbit{
+  max-width:1200px;margin:0 auto;
+  position:relative;height:480px;
+  display:flex;align-items:center;justify-content:center;
+}
+.orbit-center{
+  width:180px;height:180px;
+  border:1px solid rgba(201,168,76,.3);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem;letter-spacing:.2em;color:var(--gold);
+  position:relative;z-index:2;
+  animation:rotateCW 20s linear infinite;
+  text-align:center;
+}
+.orbit-ring{
+  position:absolute;border-radius:50%;border:1px dashed rgba(201,168,76,.15);
+  animation:rotateCCW 30s linear infinite;
+}
+.orbit-ring:nth-child(1){width:320px;height:320px}
+.orbit-ring:nth-child(2){width:460px;height:460px;animation-duration:45s}
+@keyframes rotateCW{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@keyframes rotateCCW{0%{transform:rotate(0)}100%{transform:rotate(-360deg)}}
+
+.sticker-item{
+  position:absolute;
+  width:90px;height:90px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;letter-spacing:.1em;text-align:center;text-transform:uppercase;
+  font-weight:500;cursor:none;
+  transition:transform .3s, box-shadow .3s;
+  border:2px solid rgba(255,255,255,.1);
+}
+.sticker-item:hover{
+  transform:scale(1.25) !important;
+  box-shadow:0 0 30px rgba(201,168,76,.4);
+  z-index:10;
+}
+
+/* === REDBUBBLE STORE === */
+#store{
+  padding:6rem 3rem;
+  background:linear-gradient(to bottom, var(--black), #0d0d1a, var(--black));
+}
+.store-wrapper{
+  max-width:1200px;margin:0 auto;
+}
+.rb-frame-container{
+  position:relative;
+  border:1px solid rgba(201,168,76,.2);
+  border-radius:4px;
+  overflow:hidden;
+  background:#0d0d1a;
+}
+.rb-frame-container::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom, rgba(10,10,10,.3) 0%, transparent 60px, transparent calc(100% - 60px), rgba(10,10,10,.3) 100%);
+  pointer-events:none;z-index:2;
+}
+.rb-frame-container iframe{
+  width:100%;min-height:700px;border:none;display:block;
+  filter:brightness(1.05) saturate(0.9);
+}
+.store-header-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.8rem 1.2rem;
+  background:rgba(201,168,76,.06);
+  border-bottom:1px solid rgba(201,168,76,.15);
+}
+.store-dots{display:flex;gap:6px}
+.store-dot{width:10px;height:10px;border-radius:50%}
+.sd1{background:#ff5f57}.sd2{background:#febc2e}.sd3{background:#28c840}
+.store-url{
+  font-size:.7rem;letter-spacing:.1em;color:rgba(201,168,76,.5);
+  font-family:monospace;
+}
+
+/* === MARQUEE CATEGORIES === */
+.categories-strip{
+  padding:4rem 0;
+  overflow:hidden;position:relative;
+}
+.cat-track{
+  display:flex;gap:2rem;
+  animation:catScroll 20s linear infinite;
+  width:max-content;
+}
+.cat-track.reverse{animation:catScrollRev 22s linear infinite}
+@keyframes catScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes catScrollRev{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+.cat-pill{
+  display:inline-flex;align-items:center;gap:.8rem;
+  padding:.65rem 1.8rem;
+  border:1px solid rgba(201,168,76,.2);
+  font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(245,240,232,.6);white-space:nowrap;
+  background:rgba(201,168,76,.04);
+  transition:all .3s;cursor:none;
+}
+.cat-pill:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.08)}
+.cat-pill svg{width:14px;height:14px;opacity:.6}
+
+/* === FEATURES === */
+#features{
+  padding:6rem 3rem;
+  max-width:1200px;margin:0 auto;
+}
+.features-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  border:2px solid rgba(201,168,76,.15);
+}
+.feature-card{
+  padding:2.5rem 2rem;
+  border:1px solid rgba(201,168,76,.08);
+  background:rgba(255,255,255,.02);
+  position:relative;overflow:hidden;
+  transition:background .4s;
+}
+.feature-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right, transparent, var(--gold), transparent);
+  transform:scaleX(0);transition:transform .5s;
+}
+.feature-card:hover{background:rgba(201,168,76,.04)}
+.feature-card:hover::before{transform:scaleX(1)}
+.feat-number{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:4rem;color:rgba(201,168,76,.1);
+  line-height:1;margin-bottom:.5rem;
+  transition:color .4s;
+}
+.feature-card:hover .feat-number{color:rgba(201,168,76,.2)}
+.feat-title{font-weight:500;font-size:1.05rem;margin-bottom:.7rem}
+.feat-desc{font-size:.85rem;font-weight:300;color:rgba(245,240,232,.5);line-height:1.7}
+
+/* === PARALLAX BANNER === */
+.parallax-banner{
+  height:50vh;min-height:320px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+.banner-bg{
+  position:absolute;inset:-20%;
+  background:linear-gradient(135deg, #0f0f1e 0%, #1a0a2e 30%, #2d0a1a 60%, #1a1a00 100%);
+  animation:parallaxScroll 8s ease-in-out infinite alternate;
+}
+@keyframes parallaxScroll{from{transform:translateY(-5%)}to{transform:translateY(5%)}}
+.banner-lines{
+  position:absolute;inset:0;overflow:hidden;
+}
+.banner-line{
+  position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(to right, transparent, rgba(201,168,76,.15), transparent);
+}
+.banner-text{
+  position:relative;z-index:2;text-align:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,7vw,6rem);
+  letter-spacing:.06em;line-height:1;
+}
+.banner-text span{color:var(--gold)}
+
+/* === WAVING CLOTHES ROW === */
+.clothes-parade{
+  padding:5rem 0;overflow:hidden;
+  border-top:1px solid rgba(201,168,76,.1);
+  border-bottom:1px solid rgba(201,168,76,.1);
+  background:rgba(201,168,76,.02);
+}
+.clothes-row{
+  display:flex;gap:3rem;
+  animation:clothesScroll 30s linear infinite;
+  width:max-content;
+}
+.cloth-item{
+  display:flex;flex-direction:column;align-items:center;gap:.8rem;
+  flex-shrink:0;
+}
+.cloth-svg-wrap{
+  width:120px;height:140px;
+  animation:clothWave 3s ease-in-out infinite;
+  transform-origin:50% 15%;
+}
+.cloth-svg-wrap:nth-child(odd){animation-delay:.5s;animation-duration:3.5s}
+.cloth-label{
+  font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(245,240,232,.4);
+}
+@keyframes clothesScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes clothWave{
+  0%,100%{transform:rotate(-3deg)}
+  30%{transform:rotate(2deg) translateY(-4px)}
+  60%{transform:rotate(-1deg) translateY(-2px) skewX(.5deg)}
+}
+
+/* === FOOTER === */
+footer{
+  padding:4rem 3rem 2rem;
+  border-top:1px solid rgba(201,168,76,.1);
+}
+.footer-grid{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:3rem;margin-bottom:3rem;
+}
+.footer-brand .nav-logo{display:block;margin-bottom:1rem}
+.footer-brand p{font-size:.85rem;font-weight:300;color:rgba(245,240,232,.4);line-height:1.7;max-width:260px}
+.footer-col h4{
+  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.2rem;font-weight:400;
+}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:.7rem}
+.footer-col a{
+  color:rgba(245,240,232,.5);text-decoration:none;font-size:.85rem;
+  font-weight:300;transition:color .3s;
+}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{
+  border-top:1px solid rgba(201,168,76,.08);
+  padding-top:1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:1200px;margin:0 auto;
+}
+.footer-bottom p{font-size:.75rem;color:rgba(245,240,232,.25);font-weight:300}
+
+/* === SCROLL ANIMATIONS === */
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+}
+.reveal.visible{opacity:1;transform:none}
+.reveal-left{
+  opacity:0;transform:translateX(-30px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+}
+.reveal-left.visible{opacity:1;transform:none}
+
+/* Glitch text effect */
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{
+  content:attr(data-text);
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  clip:rect(0,0,0,0);
+}
+.glitch::before{
+  color:var(--accent);animation:glitch1 3s infinite;
+}
+.glitch::after{
+  color:var(--gold);animation:glitch2 3s .5s infinite;
+}
+@keyframes glitch1{
+  0%,85%,100%{clip:rect(0,9999px,0,0)}
+  86%{clip:rect(20px,9999px,30px,0);transform:skewX(-2deg)}
+  88%{clip:rect(60px,9999px,70px,0);transform:skewX(1deg)}
+  90%{clip:rect(5px,9999px,12px,0);transform:skewX(3deg)}
+  92%,94%{clip:rect(0,9999px,0,0)}
+}
+@keyframes glitch2{
+  0%,88%,100%{clip:rect(0,9999px,0,0)}
+  89%{clip:rect(40px,9999px,50px,0);transform:skewX(2deg)}
+  91%{clip:rect(15px,9999px,22px,0);transform:skewX(-3deg)}
+  93%{clip:rect(0,9999px,0,0)}
+}
+
+/* === LOADER === */
+#loader{
+  position:fixed;inset:0;z-index:9000;
+  background:var(--black);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:1.5rem;
+  transition:opacity .6s, visibility .6s;
+}
+#loader.done{opacity:0;visibility:hidden}
+.loader-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:5rem;letter-spacing:.2em;
+  color:var(--gold);
+  animation:loaderPulse 1.2s ease-in-out infinite;
+}
+@keyframes loaderPulse{0%,100%{opacity:.4}50%{opacity:1}}
+.loader-bar{
+  width:200px;height:1px;background:rgba(201,168,76,.2);
+  position:relative;overflow:hidden;
+}
+.loader-progress{
+  position:absolute;left:0;top:0;height:100%;
+  background:var(--gold);
+  animation:loaderFill 1.8s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes loaderFill{from{width:0}to{width:100%}}
+
+/* Shooting stars */
+.star{
+  position:fixed;width:2px;height:2px;background:var(--gold);
+  border-radius:50%;pointer-events:none;z-index:0;
+  animation:starFade linear infinite;
+  opacity:0;
+}
+@keyframes starFade{
+  0%{opacity:0;transform:translateX(0) translateY(0)}
+  10%{opacity:.8}
+  100%{opacity:0;transform:translateX(-200px) translateY(100px)}
+}
+
+/* Mobile */
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  nav.scrolled{padding:.7rem 1.5rem}
+  .nav-links{display:none}
+  .hero-content{grid-template-columns:1fr;gap:2rem}
+  .hero-visual{display:none}
+  .hero-title{font-size:clamp(3.5rem,15vw,5rem)}
+  #products{padding:4rem 1.5rem}
+  .product-card{width:160px;height:220px}
+  .features-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+  .sticker-orbit{height:320px}
+  .orbit-ring:nth-child(2){width:290px;height:290px}
+  footer{padding:3rem 1.5rem 2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-logo">OZRAN</div>
+  <div class="loader-bar"><div class="loader-progress"></div></div>
+</div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">OZRAN</a>
+  <ul class="nav-links">
+    <li><a href="#products">Collection</a></li>
+    <li><a href="#store">Shop</a></li>
+    <li><a href="#features">About</a></li>
+  </ul>
+  <a href="#store" class="nav-cta">Shop Now</a>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-eyebrow"><span></span>Premium Lifestyle Store</div>
+      <h1 class="hero-title">
+        <span class="glitch" data-text="OZRAN">OZRAN</span><br>
+        <span class="line2">Originals</span>
+      </h1>
+      <p class="hero-desc">
+        Limited edition phone cases, wearables & home pieces. Every design tells a story — F1 legends, anime icons, and street culture.
+      </p>
+      <div class="hero-btns">
+        <a href="#store" class="btn-primary">Explore Collection</a>
+        <a href="#products" class="btn-outline">View Lookbook</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="tshirt-scene">
+        <div class="tshirt-glow"></div>
+        <svg class="tshirt-svg" viewBox="0 0 300 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#c9a84c"/>
+              <stop offset="100%" stop-color="#e8c96a"/>
+            </linearGradient>
+            <linearGradient id="tg2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1a1a2e"/>
+              <stop offset="100%" stop-color="#16213e"/>
+            </linearGradient>
+            <filter id="tshirtGlow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- T-shirt body -->
+          <path d="M80 60 L20 110 L55 130 L55 300 L245 300 L245 130 L280 110 L220 60 Q200 30 150 30 Q100 30 80 60Z"
+            fill="url(#tg2)" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"/>
+          <!-- Collar -->
+          <path d="M120 60 Q150 90 180 60" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+          <!-- Sleeves detail -->
+          <path d="M20 110 L55 130" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+          <path d="M280 110 L245 130" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+          <!-- Design on shirt — abstract O letter -->
+          <circle cx="150" cy="185" r="55" fill="none" stroke="url(#tg1)" stroke-width="2.5" opacity="0.7"/>
+          <circle cx="150" cy="185" r="38" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+          <text x="150" y="196" text-anchor="middle" fill="url(#tg1)" font-family="'Bebas Neue',sans-serif" font-size="32" letter-spacing="4" opacity="0.9">OZRAN</text>
+          <!-- Hem line -->
+          <line x1="55" y1="290" x2="245" y2="290" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <!-- Fold/shadow lines -->
+          <path d="M95 140 Q100 200 105 300" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+          <path d="M195 140 Q200 200 195 300" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+          <!-- Shine -->
+          <path d="M90 80 Q110 120 100 200" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8" stroke-linecap="round"/>
+        </svg>
+
+        <div class="floating-tags">
+          <div class="ftag">Limited Edition</div>
+          <div class="ftag">F1 × Anime</div>
+          <div class="ftag">Premium Quality</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ticker -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>Phone Cases</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>T-Shirts</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Pillows</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Stickers</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Max Verstappen</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Gojo Satoru</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>F1 Edition</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Limited Drops</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Phone Cases</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>T-Shirts</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Pillows</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Stickers</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Max Verstappen</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Gojo Satoru</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>F1 Edition</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Limited Drops</span>
+  </div>
+</div>
+
+<!-- Waving Clothes Parade -->
+<section class="clothes-parade">
+  <div class="clothes-row" id="clothesRow">
+    <!-- Duplicated for seamless loop -->
+  </div>
+</section>
+
+<!-- Product Decks Section -->
+<section id="products">
+  <div class="section-header reveal">
+    <span class="section-label">— Lookbook —</span>
+    <h2 class="section-title">The <em>Collection</em></h2>
+  </div>
+
+  <div class="deck-container">
+    <!-- Phone Cases Deck -->
+    <div class="product-deck reveal">
+      <span class="deck-label">Cases</span>
+      <div class="cards-row">
+        <div class="product-card">
+          <div class="card-bg pcard-verstappen">
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.3" viewBox="0 0 200 280">
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#ff4400" stroke-width="1"/>
+              <text x="100" y="90" text-anchor="middle" fill="#ff4400" font-family="Bebas Neue,sans-serif" font-size="48" opacity=".5">1</text>
+              <text x="100" y="130" text-anchor="middle" fill="rgba(255,255,255,.3)" font-family="Bebas Neue,sans-serif" font-size="14" letter-spacing="3">MAX</text>
+            </svg>
+          </div>
+          <div class="card-inner">
+            <span class="card-tag">F1 Legend</span>
+            <div class="card-name">Max Verstappen<br>Limited Edition</div>
+            <div class="card-price">Phone Case</div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="card-bg pcard-gojo">
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.35" viewBox="0 0 200 280">
+              <circle cx="100" cy="110" r="70" fill="none" stroke="#7c3cff" stroke-width="1"/>
+              <circle cx="100" cy="110" r="50" fill="none" stroke="rgba(124,60,255,.4)" stroke-width=".5"/>
+              <text x="100" y="155" text-anchor="middle" fill="#7c3cff" font-family="Bebas Neue,sans-serif" font-size="13" letter-spacing="3">GOJO SATORU</text>
+              <line x1="60" y1="105" x2="80" y2="105" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+              <line x1="120" y1="105" x2="140" y2="105" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+            </svg>
+          </div>
+          <div class="card-inner">
+            <span class="card-tag">Jujutsu Kaisen</span>
+            <div class="card-name">Gojo Satoru<br>Infinity Edition</div>
+            <div class="card-price">Phone Case</div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="card-bg pcard-f1">
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.35" viewBox="0 0 200 280">
+              <rect x="40" y="40" width="120" height="60" rx="4" fill="none" stroke="#00aa00" stroke-width="1"/>
+              <text x="100" y="80" text-anchor="middle" fill="#00aa00" font-family="Bebas Neue,sans-serif" font-size="24" letter-spacing="3">F1</text>
+              <path d="M20 150 Q100 120 180 150" fill="none" stroke="#00aa00" stroke-width="1" opacity=".5"/>
+              <path d="M20 170 Q100 140 180 170" fill="none" stroke="#00aa00" stroke-width=".5" opacity=".3"/>
+            </svg>
+          </div>
+          <div class="card-inner">
+            <span class="card-tag">Racing Series</span>
+            <div class="card-name">F1 Grand Prix<br>Edition</div>
+            <div class="card-price">Phone Case</div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="card-bg pcard-anime">
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.3" viewBox="0 0 200 280">
+              <polygon points="100,40 160,80 160,160 100,200 40,160 40,80" fill="none" stroke="#c0006a" stroke-width="1"/>
+              <text x="100" y="135" text-anchor="middle" fill="#c0006a" font-family="Bebas Neue,sans-serif" font-size="16" letter-spacing="2">ANIME</text>
+            </svg>
+          </div>
+          <div class="card-inner">
+            <span class="card-tag">Anime Culture</span>
+            <div class="card-name">Anime Art<br>Series Vol.2</div>
+            <div class="card-price">Phone Case</div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="card-bg pcard-abstract">
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.3" viewBox="0 0 200 280">
+              <circle cx="70" cy="100" r="50" fill="none" stroke="#aaaa00" stroke-width="1"/>
+              <circle cx="130" cy="130" r="60" fill="none" stroke="#aaaa00" stroke-width=".5" opacity=".6"/>
+              <line x1="0" y1="200" x2="200" y2="200" stroke="#aaaa00" stroke-width=".5" opacity=".4"/>
+            </svg>
+          </div>
+          <div class="card-inner">
+            <span class="card-tag">Abstract Art</span>
+            <div class="card-name">Abstract<br>Geometry</div>
+            <div class="card-price">Phone Case</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pillows Deck -->
+    <div class="product-deck reveal" style="transition-delay:.15s">
+      <span class="deck-label">Pillows</span>
+      <div class="cards-row" style="justify-content:center">
+        <div class="product-card" style="width:220px;height:220px;border-radius:40px">
+          <div class="card-bg pilcard-f1" style="border-radius:40px">
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.4" viewBox="0 0 220 220">
+              <text x="110" y="120" text-anchor="middle" fill="#0070c0" font-family="Bebas Neue,sans-serif" font-size="50" letter-spacing="4" opacity=".5">F1</text>
+              <circle cx="110" cy="110" r="90" fill="none" stroke="#0070c0" stroke-width="1" opacity=".3"/>
+            </svg>
+          </div>
+          <div class="card-inner">
+            <span class="card-tag">Racing</span>
+            <div class="card-name">F1 Podium Pillow</div>
+          </div>
+        </div>
+        <div class="product-card" style="width:220px;height:220px;border-radius:40px">
+          <div class="card-bg pilcard-manga" style="border-radius:40px">
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.35" viewBox="0 0 220 220">
+              <path d="M30,30 L190,30 L190,190 L30,190 Z" fill="none" stroke="#c04000" stroke-width="1"/>
+              <text x="110" y="125" text-anchor="middle" fill="#c04000" font-family="Bebas Neue,sans-serif" font-size="20" letter-spacing="2">MANGA</text>
+            </svg>
+          </div>
+          <div class="card-inner">
+            <span class="card-tag">Anime Art</span>
+            <div class="card-name">Manga Panel Pillow</div>
+          </div>
+        </div>
+        <div class="product-card" style="width:220px;height:220px;border-radius:40px">
+          <div class="card-bg pilcard-space" style="border-radius:40px">
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.4" viewBox="0 0 220 220">
+              <circle cx="110" cy="110" r="80" fill="none" stroke="#200060" stroke-width="2"/>
+              <circle cx="110" cy="110" r="50" fill="rgba(32,0,96,.3)"/>
+              <circle cx="110" cy="110" r="20" fill="rgba(32,0,96,.5)"/>
+              <text x="110" y="160" text-anchor="middle" fill="rgba(255,255,255,.3)" font-family="Bebas Neue,sans-serif" font-size="11" letter-spacing="3">COSMOS</text>
+            </svg>
+          </div>
+          <div class="card-inner">
+            <span class="card-tag">Space Series</span>
+            <div class="card-name">Cosmos Throw Pillow</div>
+          </div>
+        </div>
+        <div class="product-card" style="width:220px;height:220px;border-radius:40px">
+          <div class="card-bg pilcard-nature" style="border-radius:40px"></div>
+          <div class="card-inner">
+            <span class="card-tag">Nature</span>
+            <div class="card-name">Botanical Pillow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sticker Orbit -->
+<section style="padding:5rem 3rem;overflow:hidden">
+  <div class="section-header reveal">
+    <span class="section-label">— Stickers & More —</span>
+    <h2 class="section-title">Stick Your <em>Style</em></h2>
+  </div>
+  <div class="sticker-orbit">
+    <div class="orbit-ring"></div>
+    <div class="orbit-ring"></div>
+    <div class="orbit-center">OZRAN<br>STICKERS</div>
+
+    <div class="sticker-item" style="background:#1a0000;top:15%;left:50%;transform:translateX(-50%) translateX(-180px);color:#ff6644;border-color:#ff4422">F1<br>Fan</div>
+    <div class="sticker-item" style="background:#0a0018;top:15%;right:50%;transform:translateX(50%) translateX(180px);color:#aa88ff;border-color:#8844ff">Anime<br>Soul</div>
+    <div class="sticker-item" style="background:#001a08;top:50%;left:5%;transform:translateY(-50%);color:#44cc88;border-color:#22aa66">Turbo<br>Mode</div>
+    <div class="sticker-item" style="background:#1a1000;top:50%;right:5%;transform:translateY(-50%);color:#ccaa44;border-color:#aa8822">Gold<br>Tier</div>
+    <div class="sticker-item" style="background:#000a1a;bottom:15%;left:50%;transform:translateX(-50%) translateX(-180px);color:#4488cc;border-color:#2266aa">Speed<br>King</div>
+    <div class="sticker-item" style="background:#1a0010;bottom:15%;right:50%;transform:translateX(50%) translateX(180px);color:#cc44aa;border-color:#aa2288">Kawaii<br>Gang</div>
+    <div class="sticker-item" style="background:#0a0a00;top:35%;left:50%;transform:translateX(-50%) translateX(-220px) translateY(20px);color:#bbbb44;border-color:#999922;width:70px;height:70px;font-size:.55rem">Drift<br>Hard</div>
+    <div class="sticker-item" style="background:#001010;top:35%;right:50%;transform:translateX(50%) translateX(220px) translateY(20px);color:#44bbcc;border-color:#2299aa;width:70px;height:70px;font-size:.55rem">Weeb<br>Life</div>
+  </div>
+</section>
+
+<!-- Category Scrolls -->
+<div class="categories-strip">
+  <div class="cat-track">
+    <div class="cat-pill">Phone Cases</div>
+    <div class="cat-pill">T-Shirts</div>
+    <div class="cat-pill">Throw Pillows</div>
+    <div class="cat-pill">Stickers</div>
+    <div class="cat-pill">Hoodies</div>
+    <div class="cat-pill">Posters</div>
+    <div class="cat-pill">Tote Bags</div>
+    <div class="cat-pill">Phone Cases</div>
+    <div class="cat-pill">T-Shirts</div>
+    <div class="cat-pill">Throw Pillows</div>
+    <div class="cat-pill">Stickers</div>
+    <div class="cat-pill">Hoodies</div>
+    <div class="cat-pill">Posters</div>
+    <div class="cat-pill">Tote Bags</div>
+  </div>
+  <div style="height:.5rem"></div>
+  <div class="cat-track reverse">
+    <div class="cat-pill">Max Verstappen</div>
+    <div class="cat-pill">Gojo Satoru</div>
+    <div class="cat-pill">F1 Racing</div>
+    <div class="cat-pill">Anime Series</div>
+    <div class="cat-pill">Abstract Art</div>
+    <div class="cat-pill">Street Culture</div>
+    <div class="cat-pill">Limited Drop</div>
+    <div class="cat-pill">Max Verstappen</div>
+    <div class="cat-pill">Gojo Satoru</div>
+    <div class="cat-pill">F1 Racing</div>
+    <div class="cat-pill">Anime Series</div>
+    <div class="cat-pill">Abstract Art</div>
+    <div class="cat-pill">Street Culture</div>
+    <div class="cat-pill">Limited Drop</div>
+  </div>
+</div>
+
+<!-- Parallax Banner -->
+<div class="parallax-banner">
+  <div class="banner-bg"></div>
+  <div class="banner-lines" id="bannerLines"></div>
+  <div class="banner-text reveal">
+    POWERED BY <span>PASSION</span><br>
+    BUILT FOR <span>CULTURE</span>
+  </div>
+</div>
+
+<!-- Live Store -->
+<section id="store">
+  <div class="store-wrapper">
+    <div class="section-header reveal" style="margin-bottom:2.5rem">
+      <span class="section-label">— Live Store —</span>
+      <h2 class="section-title">Shop <em>OZRAN</em></h2>
+      <p style="margin-top:1rem;color:rgba(245,240,232,.5);font-size:.9rem;font-weight:300">Browse and purchase directly from our Redbubble store</p>
+    </div>
+    <div class="rb-frame-container reveal">
+      <div class="store-header-bar">
+        <div class="store-dots">
+          <div class="store-dot sd1"></div>
+          <div class="store-dot sd2"></div>
+          <div class="store-dot sd3"></div>
+        </div>
+        <span class="store-url">redbubble.com/people/ozran</span>
+        <span style="font-size:.65rem;color:rgba(201,168,76,.4);letter-spacing:.1em">SECURE STORE</span>
+      </div>
+      <script type="text/javascript" src="https://www.redbubble.com/assets/external_portfolio.js"></script>
+      <script id="rb-xzfcxvzx" type="text/javascript">new RBExternalPortfolio('www.redbubble.com', 'ozran', 4, 4).renderIframe();</script>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features">
+  <div class="section-header reveal" style="margin-bottom:3rem">
+    <span class="section-label">— Why OZRAN —</span>
+    <h2 class="section-title">The <em>Promise</em></h2>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <div class="feat-number">01</div>
+      <h3 class="feat-title">Limited Editions</h3>
+      <p class="feat-desc">Every drop is curated and quantity-limited. Own something genuinely rare — not mass-produced noise.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-number">02</div>
+      <h3 class="feat-title">Premium Print Quality</h3>
+      <p class="feat-desc">Vivid dye-sublimation printing on every piece. Colors that last wash after wash, sharp as the day you unboxed.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-number">03</div>
+      <h3 class="feat-title">Culture-First Design</h3>
+      <p class="feat-desc">Born from F1 obsession and anime love. Every design is a cultural statement, not just a product.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-number">04</div>
+      <h3 class="feat-title">Worldwide Shipping</h3>
+      <p class="feat-desc">Printed and shipped globally via Redbubble. Wherever you are, OZRAN reaches you.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-number">05</div>
+      <h3 class="feat-title">Every Product Type</h3>
+      <p class="feat-desc">From phone cases to pillows, tees to stickers — your whole life can carry the OZRAN aesthetic.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-number">06</div>
+      <h3 class="feat-title">Artist-Owned Brand</h3>
+      <p class="feat-desc">100% independent. Every purchase supports original artist work and keeps the culture alive.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">OZRAN</a>
+      <p>Premium lifestyle products inspired by motorsport, anime, and street culture. Every piece is a limited edition statement.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#store">Phone Cases</a></li>
+        <li><a href="#store">T-Shirts</a></li>
+        <li><a href="#store">Pillows</a></li>
+        <li><a href="#store">Stickers</a></li>
+        <li><a href="#store">All Products</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Collections</h4>
+      <ul>
+        <li><a href="#store">F1 Series</a></li>
+        <li><a href="#store">Anime Icons</a></li>
+        <li><a href="#store">Street Art</a></li>
+        <li><a href="#store">Abstract</a></li>
+        <li><a href="#store">New Drops</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="https://www.redbubble.com/people/ozran" target="_blank">Redbubble Store</a></li>
+        <li><a href="#">About OZRAN</a></li>
+        <li><a href="#">Shipping Info</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 OZRAN. All rights reserved. Powered by Redbubble.</p>
+    <p style="color:rgba(201,168,76,.3)">OZRAN — Originals</p>
+  </div>
+</footer>
+
+<script>
+// === LOADER ===
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('done');
+  }, 2000);
+});
+
+// === CUSTOM CURSOR ===
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+function animRing(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button,[class*="card"],[class*="btn"]').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ ring.style.transform='translate(-50%,-50%) scale(1.8)'; ring.style.opacity='.3'; });
+  el.addEventListener('mouseleave',()=>{ ring.style.transform='translate(-50%,-50%) scale(1)'; ring.style.opacity='.6'; });
+});
+
+// === NAV SCROLL ===
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// === SCROLL REVEAL ===
+const reveals = document.querySelectorAll('.reveal,.reveal-left');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+},{threshold:.15});
+reveals.forEach(el=>io.observe(el));
+
+// === CLOTHES PARADE ===
+const clothColors = [
+  {bg:'#1a0000',stroke:'#ff4400',label:'F1 Red'},
+  {bg:'#0a0018',stroke:'#7c3cff',label:'Anime'},
+  {bg:'#001a08',stroke:'#00aa44',label:'Nature'},
+  {bg:'#1a1000',stroke:'#cc8800',label:'Gold'},
+  {bg:'#000a1a',stroke:'#0088cc',label:'Ocean'},
+  {bg:'#1a0010',stroke:'#cc0088',label:'Pink'},
+  {bg:'#0a0a0a',stroke:'#888888',label:'Noir'},
+  {bg:'#001818',stroke:'#00cccc',label:'Teal'},
+];
+const clothesSvg = (c) => `
+<svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+  <path d="M32 24 L8 44 L22 52 L22 120 L98 120 L98 52 L112 44 L88 24 Q78 12 60 12 Q42 12 32 24Z"
+    fill="${c.bg}" stroke="${c.stroke}" stroke-width="1" opacity=".9"/>
+  <path d="M48 24 Q60 36 72 24" fill="none" stroke="${c.stroke}" stroke-width="1" opacity=".6"/>
+  <circle cx="60" cy="72" r="20" fill="none" stroke="${c.stroke}" stroke-width="1" opacity=".4"/>
+  <text x="60" y="78" text-anchor="middle" fill="${c.stroke}" font-family="Bebas Neue,sans-serif" font-size="10" letter-spacing="1" opacity=".7">OZR</text>
+</svg>`;
+
+const row = document.getElementById('clothesRow');
+const items = [...clothColors,...clothColors];
+items.forEach(c=>{
+  const div = document.createElement('div');
+  div.className = 'cloth-item';
+  div.innerHTML = `<div class="cloth-svg-wrap">${clothesSvg(c)}</div><span class="cloth-label">${c.label}</span>`;
+  row.appendChild(div);
+});
+
+// === BANNER LINES ===
+const bannerLines = document.getElementById('bannerLines');
+for(let i=0;i<8;i++){
+  const l = document.createElement('div');
+  l.className='banner-line';
+  l.style.top = (i*14+5)+'%';
+  l.style.animationDelay = (i*.2)+'s';
+  bannerLines.appendChild(l);
+}
+
+// === DECK SHUFFLE ANIMATION ON HOVER ===
+document.querySelectorAll('.cards-row').forEach(row => {
+  row.addEventListener('mouseenter', () => {
+    const cards = row.querySelectorAll('.product-card');
+    cards.forEach((card, i) => {
+      const delay = i * 40;
+      setTimeout(() => {
+        card.style.transition = 'transform .4s cubic-bezier(.16,1,.3,1)';
+      }, delay);
+    });
+  });
+});
+
+// === PARALLAX ON SCROLL ===
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const bg = document.querySelector('.banner-bg');
+  if(bg) bg.style.transform = `translateY(${y*0.03}px)`;
+  const heroGrid = document.querySelector('.hero-grid');
+  if(heroGrid) heroGrid.style.transform = `translateY(${y*0.15}px)`;
+});
+
+// === SHOOTING STARS ===
+function createStar(){
+  const star = document.createElement('div');
+  star.className='star';
+  const x = Math.random()*window.innerWidth;
+  const y = Math.random()*window.innerHeight*0.5;
+  const dur = 2+Math.random()*3;
+  star.style.cssText=`left:${x}px;top:${y}px;animation-duration:${dur}s;animation-delay:${Math.random()*5}s;width:${Math.random()<.3?3:2}px;height:${Math.random()<.3?3:2}px`;
+  document.body.appendChild(star);
+  setTimeout(()=>star.remove(), (dur+5)*1000);
+}
+setInterval(createStar, 600);
+
+// === TSHIRT ADDITIONAL WAVE EFFECT ===
+const tshirt = document.querySelector('.tshirt-svg');
+let wave = 0;
+function waveTshirt(){
+  wave += 0.02;
+  if(tshirt){
+    const skew = Math.sin(wave)*1.5;
+    const sway = Math.sin(wave*.7)*3;
+    // CSS animation handles this; we just add subtle path deformation via filter
+  }
+  requestAnimationFrame(waveTshirt);
+}
+waveTshirt();
+</script>
+</body>
+</html>
